@@ -39,7 +39,10 @@ export default class Home extends Component {
         this.state = {
             github: null,
             showToast: false,
-            status: '...'
+            toastMessage: '',
+            status: '...',
+            serverStatus: null,
+            requestLimit: null
         }
     }
 
@@ -66,7 +69,8 @@ export default class Home extends Component {
         .then(data => {
             this.setState({
                 github: data,
-                showToast: true
+                showToast: true,
+                toastMessage: data.message ? data.message : 'Succesfuly fetched.'
             })
         })
     }
@@ -106,7 +110,7 @@ export default class Home extends Component {
                                     <strong className="mr-auto">Github</strong>
                                     <small>{(new Date()).toLocaleTimeString()}</small>
                                 </Toast.Header>
-                                <Toast.Body>Done fetching</Toast.Body>
+                                <Toast.Body>{this.state.toastMessage ? this.state.toastMessage : ''}</Toast.Body>
                             </Toast>
                             :
                             ''
